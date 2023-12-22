@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="courses-page">
     <h3>Courses</h3>
     <course v-for="course in courses" :key="course.id" :course="course" />
   </div>
@@ -38,5 +38,16 @@ h3 {
   text-align: center;
   color: rgb(8, 110, 110);
 }
+
+.courses-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.course-details {
+  width: 60%;
+  margin-bottom: 20px;
+}
 </style>
-s

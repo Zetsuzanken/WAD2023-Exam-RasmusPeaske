@@ -6,7 +6,6 @@
         <label>Max Number of Students:</label>
         <input v-model="updatedData.studentsnumbers" type="number" />
       </div>
-
       <div class="form-group">
         <label>Number of Groups:</label>
         <input
@@ -15,14 +14,11 @@
           :class="{ 'invalid-input': isInvalidGroups }"
         />
       </div>
-
       <div class="form-group">
         <label>Course Description:</label>
         <textarea v-model="updatedData.description"></textarea>
       </div>
     </div>
-
-    <!-- Button for updating course data -->
     <button @click="updateCourseData" :disabled="isUpdateDisabled">Update Course</button>
   </div>
 </template>
@@ -55,12 +51,10 @@ export default {
   },
   methods: {
     fetchCourseData() {
-      // Fetch course data based on this.courseId
       fetch(`http://localhost:3000/api/courses/${this.courseId}`)
         .then((response) => response.json())
         .then((data) => {
           this.courseData = data;
-          // Initialize updatedData with the existing course data
           this.updatedData.studentsnumbers = data.studentsnumbers;
           this.updatedData.groupsnumbers = data.groupsnumbers;
           this.updatedData.description = data.description;
@@ -68,7 +62,6 @@ export default {
         .catch((err) => console.log(err.message));
     },
     updateCourseData() {
-      // Send the updated data to the backend
       fetch(`http://localhost:3000/api/courses/${this.courseId}`, {
         method: "PUT",
         headers: {
@@ -78,12 +71,8 @@ export default {
       })
         .then((response) => response.json())
         .then((data) => {
-          // Handle the response, e.g., show a success message
           console.log("Course data updated:", data);
-          // Optionally, you can re-fetch the course data to display the updated values
           this.fetchCourseData();
-
-          // Redirect to the Courses.vue page
           this.$router.push("/courses");
         })
         .catch((err) => console.error("Error updating course data:", err));
@@ -98,11 +87,10 @@ export default {
 </script>
 
 <style scoped>
-/* Add your styles as needed */
 .form-container {
-  max-width: 600px; /* Adjust the maximum width as needed */
-  margin: 20px auto; /* Center the form container */
-  background-color: #f5f0e1; /* Light brown background */
+  max-width: 600px;
+  margin: 20px auto;
+  background-color: #f5f0e1;
   padding: 20px;
   border-radius: 8px;
 }
