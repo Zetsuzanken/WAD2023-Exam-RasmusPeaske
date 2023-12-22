@@ -1,8 +1,7 @@
 <template>
   <div class="ACourse">
-    <h3>{{ courseData.coursename }} - {{ courseData.coursecode }} - {{ courseData.courseects }} ECTS</h3>
-
     <div class="form-container">
+      <h3>{{ courseData.coursename }} - {{ courseData.coursecode }} - {{ courseData.courseects }} ECTS</h3>
       <div class="form-group">
         <label>Max Number of Students:</label>
         <input v-model="updatedData.studentsnumbers" type="number" />
@@ -24,7 +23,7 @@
     </div>
 
     <!-- Button for updating course data -->
-    <button @click="updateCourseData" :disabled="isUpdateDisabled">Update Course Data</button>
+    <button @click="updateCourseData" :disabled="isUpdateDisabled">Update Course</button>
   </div>
 </template>
 
@@ -103,6 +102,9 @@ export default {
 .form-container {
   max-width: 600px; /* Adjust the maximum width as needed */
   margin: 20px auto; /* Center the form container */
+  background-color: #f5f0e1; /* Light brown background */
+  padding: 20px;
+  border-radius: 8px;
 }
 
 .form-group {
@@ -125,6 +127,13 @@ textarea {
 }
 
 button {
-  cursor: pointer; /* Ensure the cursor is pointer for the button */
+  cursor: pointer;
+  background-color: #87cefa;
+  color: white;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 5px;
 }
 </style>
+
+
