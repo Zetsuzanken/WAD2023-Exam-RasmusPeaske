@@ -7,7 +7,9 @@
       </div>
       <div class="detail-row">
         <strong>Course code:</strong>
-        <p>{{ course.coursecode }}</p>
+        <router-link :to="{ name: 'ACourse', params: { id: course.id } }">
+          {{ course.coursecode }}
+        </router-link>
       </div>
       <div class="detail-row">
         <strong>ECTS:</strong>
@@ -57,5 +59,9 @@ export default {
 .detail-row strong {
   display: block;
   margin-bottom: 5px;
+}
+
+.router-link-exact-active {
+  color: #00f;
 }
 </style>
