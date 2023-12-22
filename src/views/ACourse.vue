@@ -10,7 +10,11 @@
 
       <div class="form-group">
         <label>Number of Groups:</label>
-        <input v-model="updatedData.groupsnumbers" type="number" />
+        <input
+          v-model="updatedData.groupsnumbers"
+          type="number"
+          :class="{ 'invalid-input': isInvalidGroups }"
+        />
       </div>
 
       <div class="form-group">
@@ -20,9 +24,10 @@
     </div>
 
     <!-- Button for updating course data -->
-    <button @click="updateCourseData">Update Course Data</button>
+    <button @click="updateCourseData" :disabled="isUpdateDisabled">Update Course Data</button>
   </div>
 </template>
+
 
 <script>
 export default {
@@ -34,9 +39,20 @@ export default {
       updatedData: {
         studentsnumbers: null,
         groupsnumbers: null,
-        description: '',
+        description: "",
       },
     };
+  },
+  computed: {
+    isInvalidGroups() {
+      return (
+        this.updatedData.groupsnumbers &&
+        this.updatedData.studentsnumbers > 30 * this.updatedData.groupsnumbers
+      );
+    },
+    isUpdateDisabled() {
+      return this.isInvalidGroups;
+    },
   },
   methods: {
     fetchCourseData() {
@@ -55,23 +71,23 @@ export default {
     updateCourseData() {
       // Send the updated data to the backend
       fetch(`http://localhost:3000/api/courses/${this.courseId}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(this.updatedData),
       })
         .then((response) => response.json())
         .then((data) => {
           // Handle the response, e.g., show a success message
-          console.log('Course data updated:', data);
+          console.log("Course data updated:", data);
           // Optionally, you can re-fetch the course data to display the updated values
           this.fetchCourseData();
 
           // Redirect to the Courses.vue page
-          this.$router.push('/Courses');
+          this.$router.push("/courses");
         })
-        .catch((err) => console.error('Error updating course data:', err));
+        .catch((err) => console.error("Error updating course data:", err));
     },
   },
   mounted() {
@@ -102,6 +118,10 @@ textarea {
   width: 100%;
   padding: 5px;
   box-sizing: border-box;
+}
+
+.invalid-input {
+  background-color: red;
 }
 
 button {
