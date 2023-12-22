@@ -42,3 +42,24 @@ app.get('/api/courses/:id', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
+
+// Update a specific course by ID
+app.put('/api/courses/:id', async (req, res) => {
+    const courseId = req.params.id;
+    const { studentsnumbers, groupsnumbers, description } = req.body;
+
+    try {
+        console.log(`A PUT request for updating course ${courseId} has arrived`);
+
+        // Update the course data in the database
+        await pool.query(
+            'UPDATE courses SET studentsnumbers = $1, groupsnumbers = $2, description = $3 WHERE id = $4',
+            [studentsnumbers, groupsnumbers, description, courseId]
+        );
+
+        res.json({ message: 'Course data updated successfully' });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
